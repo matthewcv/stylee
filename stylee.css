@@ -1,0 +1,40 @@
+﻿html,body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style:none
+}
+li>ul {
+    margin-left:20px
+}
+
+
+.colorpicker {
+    margin: 5px;
+    padding: 5px;
+    display: inline-block;
+}
+
+.colorpicker label {
+    
+    display: block;
+}
+
+.colorpicker input {
+    width: 150px;
+}
+
+
+
+#makeBox {
+    
+}
+
+
