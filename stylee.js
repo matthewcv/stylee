@@ -1,5 +1,8 @@
-﻿/// <reference path="http://code.jquery.com/jquery-2.1.0.js"/>
+/// <reference path="http://code.jquery.com/jquery-2.1.0.js"/>
 /// <reference path="http://code.jquery.com/ui/1.9.2/jquery-ui.js"/>
+
+"use strict";
+
 
 $(function () {
 
@@ -24,30 +27,63 @@ $(function () {
     };
 
 
-    $b = $('body');
+    var $b = $('body');
 
-    $selectedBox = null;
+    var $selectedBox = null;
+    
+    var $colorSliders = $(".colorpicker input[type=range]").on('change', function() {
+        setColor();
+    });
+    
+    $("input[name='colors']").on('change', function() {
+        getColor();
+    });
 
     $("#makeBox").click(function (evt) {
 
-        $selectedBox = $('<div class="box">')
+        selectBox($('<div class="box">')
             .css(boxInit)
             .appendTo($b)
             .draggable({ containment: $b })
             .resizable({ containment: $b, handles: 'all' })
-            .mousedown(boxMouseDown);
+            .mousedown(function(){
+                selectBox(this);
+            })[0]);
         return false;
     });
-
-    $("input[type=range]").on('change', function() {
-        setColor();
+    
+    $(".borders input").on('change', function(){
+        setBorder.apply(this);
     });
+    
+    function setBorder(){
+        if($selectedBox){
+            var style = $(this).data('style');
+            var unit = $(this).data('unit');
+            $selectedBox.css(style, $(this).val() + unit);
+            
+        }
+    }
 
-    function boxMouseDown(ev) {
+    
+    function selectBox(box) {
+        console.dir(box.style);
         $('.box').each(function() {
             $(this).css('z-index', 0);
         });
-        $selectedBox = $(this).css('z-index', 1);
+        $selectedBox = $(box).css('z-index', 1);
+        getColor();
+    }
+    
+    function getColor(){
+        if($selectedBox){
+            var thing = radioVal('colors') || 'border';
+            var color = new $.Color($selectedBox[0].style[thing + 'Color'])
+            $colorSliders.each(function(i){
+                $(this).val(color._rgba[i]);
+            })
+        }
+        
     }
 
 
@@ -55,7 +91,7 @@ $(function () {
 
         var thing = radioVal('colors') || 'border';
 
-        var v = $("input[type=range]").map(function(r) {
+        var v = $colorSliders.map(function(r) {
             return $(this).val();
         }).get().join();
 
