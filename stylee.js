@@ -3,7 +3,6 @@
 
 "use strict";
 
-
 $(function () {
 
     function radioVal (name) {
@@ -17,7 +16,7 @@ $(function () {
 
     var boxInit =
     {
-        border: "solid 1px black",
+        border: "solid 1px red",
         position: "absolute",
         top: "100px",
         left: "200px",
