@@ -69,7 +69,7 @@
   <ItemGroup>
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
-    <Content Include="Index.html" />
+    <Content Include="index.html" />
     <Content Include="nodeapp.js" />
     <Content Include="stylee.css" />
     <Content Include="stylee.js" />
